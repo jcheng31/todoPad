@@ -1,0 +1,11 @@
+*/bin/*
+*/bld/*
+*/obj/*
+*/misc/*
+*/SubmissionInfo/*
+thumbs.db
+*.suo
+_Resharper*
+*.DotSettings.user
+*/PerfLogs/*
+*.user
