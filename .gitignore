@@ -9,3 +9,5 @@ _Resharper*
 *.DotSettings.user
 */PerfLogs/*
 *.user
+pingme.txt
+*.pdb
