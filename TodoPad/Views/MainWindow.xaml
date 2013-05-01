@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <RichTextBox FontFamily="Consolas" FontSize="14" 
+        <RichTextBox x:Name="DocumentBox" FontFamily="Consolas" FontSize="14" 
                      ScrollViewer.CanContentScroll="True"
-                     VerticalScrollBarVisibility="Visible">
+                     VerticalScrollBarVisibility="Visible" TextChanged="DocumentBoxTextChanged">
             <RichTextBox.Resources>
                 <Style TargetType="Paragraph">
                     <Setter Property="Margin"
