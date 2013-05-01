@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using TodoPad.Task_Parser;
 
 namespace TodoPad.Views
 {
@@ -18,12 +19,27 @@ namespace TodoPad.Views
         private void DocumentBoxTextChanged(object sender, TextChangedEventArgs e)
         {
             RichTextBox textBox = (RichTextBox) sender;
-            foreach (Paragraph currentLine in textBox.Document.Blocks)
+            
+            // Remove this handler so we don't trigger it when formatting.
+            textBox.TextChanged -= DocumentBoxTextChanged;
+
+            Paragraph currentLine = textBox.Document.Blocks.FirstBlock as Paragraph;
+            while (currentLine != null)
             {
                 TextRange currentLineRange = new TextRange(currentLine.ContentStart, currentLine.ContentEnd);
-                String currentLineText = currentLineRange.Text;
+                TaskParser.ParseTask(currentLineRange);
 
+                currentLine = currentLine.NextBlock as Paragraph;
             }
+
+            //foreach (Paragraph currentLine in textBox.Document.Blocks)
+            //{
+            //    TextRange currentLineRange = new TextRange(currentLine.ContentStart, currentLine.ContentEnd);
+            //    TaskParser.ParseTask(currentLineRange);
+            //}
+
+            // Restore this handler.
+            textBox.TextChanged += DocumentBoxTextChanged;
         }
     }
 }
