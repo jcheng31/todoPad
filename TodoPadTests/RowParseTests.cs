@@ -36,6 +36,28 @@ namespace TodoPadTests
             Assert.IsTrue(testRow.HasContexts, "Row should have contexts.");
             Assert.IsTrue(testRow.HasProjects, "Row should have projects.");
             Assert.IsTrue(testRow.HasPriority, "Row should have priority.");
+
+            Assert.AreEqual(testRow.CompletionDate, new DateTime(2013, 04, 19), "Row should have correct completion date.");
+        }
+
+        [TestMethod]
+        public void AdvancedParseTest()
+        {
+            Row testRow = new Row("(B) 2013-04-19 due:2013-04-20 +CS3241 Lab 5 @Coding +University");
+            Assert.IsFalse(testRow.IsCompleted, "Row shouldn't be completed.");
+            Assert.IsTrue(testRow.HasContexts, "Row should have contexts.");
+            Assert.IsTrue(testRow.HasProjects, "Row should have projects.");
+            Assert.IsTrue(testRow.HasPriority, "Row should have priority.");
+
+            Assert.AreEqual(testRow.CreationDate, new DateTime(2013, 04, 19), "Row should have correct creation date.");
+
+            testRow = new Row("2013-04-19 due:2013-04-20 +CS3241 Lab 5 @Coding +University");
+            Assert.IsFalse(testRow.IsCompleted, "Row shouldn't be completed.");
+            Assert.IsTrue(testRow.HasContexts, "Row should have contexts.");
+            Assert.IsTrue(testRow.HasProjects, "Row should have projects.");
+            Assert.IsFalse(testRow.HasPriority, "Row shouldn't have priority.");
+
+            Assert.AreEqual(testRow.CreationDate, new DateTime(2013, 04, 19), "Row should have correct creation date.");
         }
     }
 }
