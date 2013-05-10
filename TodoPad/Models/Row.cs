@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TodoPad.Models
 {
-    class Row
+    public class Row
     {
         // The actual text contained on this row.
         public String RowText;
