@@ -95,10 +95,20 @@ namespace TodoPad.Models
             // we use the second date found; otherwise, we just use the first.
             Regex dateRegex = new Regex("\\d{4}-[0|1][0-9]-[0-3][1-9]");
             MatchCollection dateMatches = dateRegex.Matches(task);
-            Match creationMatch;
-            if (dateMatches.Count > 0)
+            bool isCreationDatePresent;
+            if (IsCompleted)
             {
-                if (IsCompleted && dateMatches.Count > 1)
+                isCreationDatePresent = dateMatches.Count > 1;
+            }
+            else
+            {
+                isCreationDatePresent = dateMatches.Count > 0;
+            }
+
+            if (isCreationDatePresent)
+            {
+                Match creationMatch;
+                if (IsCompleted)
                 {
                     creationMatch = dateMatches[1];
                 }
@@ -106,10 +116,10 @@ namespace TodoPad.Models
                 {
                     creationMatch = dateMatches[0];
                 }
-                
                 CreationDateRange = new Tuple<int, int>(creationMatch.Index, creationMatch.Index + creationMatch.Length);
                 DateTime.TryParseExact(task.Substring(creationMatch.Index, creationMatch.Length), dateFormat,
                                        CultureInfo.InvariantCulture, DateTimeStyles.None, out CreationDate);
+
             }
 
             // Check if we have any projects/contexts.
