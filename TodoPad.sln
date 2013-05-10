@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPad", "TodoPad\TodoPad.csproj", "{CCCC917D-FD2A-46F6-9C19-89C72892D113}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPadTests", "TodoPadTests\TodoPadTests.csproj", "{42872455-FF20-4FC1-937E-3C7B04DFA4E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{CCCC917D-FD2A-46F6-9C19-89C72892D113}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCCC917D-FD2A-46F6-9C19-89C72892D113}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCCC917D-FD2A-46F6-9C19-89C72892D113}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42872455-FF20-4FC1-937E-3C7B04DFA4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42872455-FF20-4FC1-937E-3C7B04DFA4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42872455-FF20-4FC1-937E-3C7B04DFA4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42872455-FF20-4FC1-937E-3C7B04DFA4E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
