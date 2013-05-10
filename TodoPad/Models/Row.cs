@@ -40,6 +40,11 @@ namespace TodoPad.Models
             get { return RowText != ""; }
         }
 
+        public bool HasPriority
+        {
+            get { return PriorityRange != null; }
+        }
+
         public bool HasProjects
         {
             get { return Projects.Count > 0; }
