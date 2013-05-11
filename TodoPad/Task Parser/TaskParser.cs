@@ -21,7 +21,7 @@ namespace TodoPad.Task_Parser
             {
                 return;
             }
-            
+
             if (row.IsCompleted)
             {
                 range.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Gray);
@@ -30,7 +30,7 @@ namespace TodoPad.Task_Parser
             }
 
             TextPointer start = range.Start;
-            
+
             if (row.HasPriority)
             {
                 TextPointer priorityStart = GetTextPointAtOffset(start, row.PriorityRange.Item1);
@@ -82,25 +82,22 @@ namespace TodoPad.Task_Parser
         {
             TextPointer returnValue = start;
             int count = 0;
-            
+
             while (count < characterOffset && returnValue != null)
             {
-                if (returnValue.GetPointerContext(LogicalDirection.Backward) == TextPointerContext.Text ||
-                    returnValue.GetPointerContext(LogicalDirection.Backward) == TextPointerContext.None)
+                TextPointerContext backwardContext = returnValue.GetPointerContext(LogicalDirection.Backward);
+                if (backwardContext == TextPointerContext.Text || backwardContext == TextPointerContext.None)
                 {
                     count++;
                 }
 
-                if (returnValue.GetPositionAtOffset(1, LogicalDirection.Forward) == null)
+                TextPointer nextPosition = returnValue.GetPositionAtOffset(1, LogicalDirection.Forward);
+                if (nextPosition == null)
                 {
                     return returnValue;
                 }
-                else
-                {
-                    returnValue = returnValue.GetPositionAtOffset(1, LogicalDirection.Forward);
-                }
+                returnValue = nextPosition;
             }
-
             return returnValue;
         }
     }
