@@ -7,33 +7,73 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using TodoPad.Models;
 
 namespace TodoPad.Task_Parser
 {
     class TaskParser
     {
-        public static void ParseTask(TextRange taskRange)
+        public static void FormatTextRange(TextRange range, Row row)
         {
-            taskRange.ClearAllProperties();
-            // Get the text contained on this line, and parse it naively.
-            String[] taskComponents = taskRange.Text.Split();
-            TextPointer start = taskRange.Start;
+            range.ClearAllProperties();
 
-            if (taskComponents.Length > 0)
+            if (!row.HasText)
             {
-                // (Rules from https://github.com/ginatrapani/todo.txt-cli/wiki/The-Todo.txt-Format)
+                return;
+            }
+            
+            if (row.IsCompleted)
+            {
+                range.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Gray);
+                range.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
+                return;
+            }
 
-                // Rule 1: If priority exists, it ALWAYS appears first.
-                Regex priorityRegex = new Regex("^\\([A-Z]\\)$");
-                if (priorityRegex.IsMatch(taskComponents[0]))
+            TextPointer start = range.Start;
+            
+            if (row.HasPriority)
+            {
+                TextPointer priorityStart = GetTextPointAtOffset(start, row.PriorityRange.Item1);
+                TextPointer priorityEnd = GetTextPointAtOffset(start, row.PriorityRange.Item2);
+                TextRange priorityRange = new TextRange(priorityStart, priorityEnd);
+
+                priorityRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+                priorityRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Blue);
+            }
+
+            if (row.HasCreationDate)
+            {
+                TextPointer dateStart = GetTextPointAtOffset(start, row.CreationDateRange.Item1);
+                TextPointer dateEnd = GetTextPointAtOffset(start, row.CreationDateRange.Item2);
+                TextRange dateRange = new TextRange(dateStart, dateEnd);
+
+                dateRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+                dateRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.DarkGreen);
+            }
+
+            if (row.HasContexts)
+            {
+                foreach (Tuple<int, int> contextRange in row.ContextRanges)
                 {
-                    TextRange priorityRange = new TextRange(start.GetPositionAtOffset(0), GetTextPointAtOffset(start, 2));
-                    priorityRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-                } 
-                else if (taskComponents[0] == "x")
+                    TextPointer contextStart = GetTextPointAtOffset(start, contextRange.Item1);
+                    TextPointer contextEnd = GetTextPointAtOffset(start, contextRange.Item2);
+                    TextRange contextTextRange = new TextRange(contextStart, contextEnd);
+
+                    contextTextRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+                    contextTextRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.DarkCyan);
+                }
+            }
+
+            if (row.HasProjects)
+            {
+                foreach (Tuple<int, int> projectRange in row.ProjectRanges)
                 {
-                    taskRange.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
-                    taskRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Gray);
+                    TextPointer projectStart = GetTextPointAtOffset(start, projectRange.Item1);
+                    TextPointer projectEnd = GetTextPointAtOffset(start, projectRange.Item2);
+                    TextRange projectTextRange = new TextRange(projectStart, projectEnd);
+
+                    projectTextRange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+                    projectTextRange.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.SaddleBrown);
                 }
             }
         }
