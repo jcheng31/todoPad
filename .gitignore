@@ -11,3 +11,5 @@ _Resharper*
 *.user
 pingme.txt
 *.pdb
+*.psess
+*.vspx
