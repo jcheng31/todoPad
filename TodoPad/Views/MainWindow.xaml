@@ -21,7 +21,8 @@
                      FontFamily="Consolas" 
                      FontSize="14" 
                      AcceptsTab="True"
-                     TextChanged="DocumentBoxTextChanged">
+                     TextChanged="DocumentBoxTextChanged" 
+                     UndoLimit="50">
             <RichTextBox.Resources>
                 <Style TargetType="Paragraph">
                     <Setter Property="Margin" Value="0" />
