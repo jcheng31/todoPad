@@ -15,8 +15,18 @@
                 <MenuItem Header="E_xit" />
             </MenuItem>
         </Menu>
-        <ListBox Grid.Row="1">
-            
-        </ListBox>
+        <RichTextBox Grid.Row="1" 
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible" 
+                     FontFamily="Consolas" 
+                     FontSize="14" 
+                     AcceptsTab="True"
+                     TextChanged="DocumentBoxTextChanged">
+            <RichTextBox.Resources>
+                <Style TargetType="Paragraph">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
     </Grid>
 </Window>
