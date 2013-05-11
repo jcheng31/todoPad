@@ -121,7 +121,7 @@ namespace TodoPad.Models
                 {
                     creationMatch = dateMatches[0];
                 }
-                CreationDateRange = new Tuple<int, int>(creationMatch.Index, creationMatch.Index + creationMatch.Length);
+                CreationDateRange = new Tuple<int, int>(creationMatch.Index - 1, creationMatch.Index + creationMatch.Length);
                 DateTime.TryParseExact(task.Substring(creationMatch.Index, creationMatch.Length), dateFormat,
                                        CultureInfo.InvariantCulture, DateTimeStyles.None, out CreationDate);
 
@@ -139,7 +139,7 @@ namespace TodoPad.Models
             foreach (Match match in projectRegex.Matches(task))
             {
                 string project = match.Value;
-                Tuple<int, int> indices = new Tuple<int, int>(match.Index, match.Index + match.Length);
+                Tuple<int, int> indices = new Tuple<int, int>(match.Index - 1, match.Index + match.Length);
 
                 Projects.Add(project);
                 ProjectRanges.Add(indices);
@@ -148,7 +148,7 @@ namespace TodoPad.Models
             foreach (Match match in contextRegex.Matches(task))
             {
                 string context = match.Value;
-                Tuple<int, int> indices = new Tuple<int, int>(match.Index, match.Index + match.Length);
+                Tuple<int, int> indices = new Tuple<int, int>(match.Index - 1, match.Index + match.Length);
 
                 Contexts.Add(context);
                 ContextRanges.Add(indices);
