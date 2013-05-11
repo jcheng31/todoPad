@@ -55,6 +55,11 @@ namespace TodoPad.Models
             get { return Contexts.Count > 0; }
         }
 
+        public bool HasCreationDate
+        {
+            get { return CreationDateRange != null; }
+        }
+
         public Row(String task)
         {
             RowText = task;
