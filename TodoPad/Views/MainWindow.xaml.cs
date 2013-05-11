@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -25,25 +26,49 @@ namespace TodoPad.Views
             // Remove this handler so we don't trigger it when formatting.
             textBox.TextChanged -= DocumentBoxTextChanged;
 
-            Paragraph currentParagraph = textBox.Document.Blocks.FirstBlock as Paragraph;
-            while (currentParagraph != null)
+            // Get the line that was changed.
+            foreach (TextChange currentChange in e.Changes)
             {
-                // Get the text on this row.
-                TextPointer start = currentParagraph.ContentStart;
-                TextPointer end = currentParagraph.ContentEnd;
-                TextRange currentTextRange = new TextRange(start, end);
+                TextPointer offSet = textBox.Document.ContentStart.GetPositionAtOffset(currentChange.Offset, LogicalDirection.Forward);
 
-                // Parse the row.
-                Row currentRow = new Row(currentTextRange.Text);
+                if (offSet != null)
+                {
+                    Paragraph currentParagraph = offSet.Paragraph;
 
-                // Format the displayed text.
-                TaskParser.FormatTextRange(currentTextRange, currentRow);
+                    if (offSet.Parent == textBox.Document)
+                    {
+                        // Format the entire document.
+                        currentParagraph = textBox.Document.Blocks.FirstBlock as Paragraph;
 
-                currentParagraph = currentParagraph.NextBlock as Paragraph;
+                        while (currentParagraph != null)
+                        {
+                            FormatParagraph(currentParagraph);
+                            currentParagraph = currentParagraph.NextBlock as Paragraph;
+                        }
+                    }
+                    else if (currentParagraph != null)
+                    {
+                        FormatParagraph(currentParagraph);
+                    }
+                }
             }
 
             // Restore this handler.
             textBox.TextChanged += DocumentBoxTextChanged;
+        }
+
+        private static void FormatParagraph(Paragraph currentParagraph)
+        {
+            // Get the text on this row.
+            TextPointer start = currentParagraph.ContentStart;
+            TextPointer end = currentParagraph.ContentEnd;
+            TextRange currentTextRange = new TextRange(start, end);
+
+            // Parse the row.
+            Row currentRow = new Row(currentTextRange.Text);
+
+            // Format the displayed text.
+            TaskParser.FormatTextRange(currentTextRange, currentRow);
         }
     }
 }
