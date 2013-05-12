@@ -14,6 +14,16 @@
                 <Separator />
                 <MenuItem Header="E_xit" />
             </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Command="Undo" />
+                <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Command="Redo" />
+                <Separator />
+                <MenuItem Header="Cu_t" InputGestureText="Ctrl+X" Command="Cut" />
+                <MenuItem Header="_Copy" InputGestureText="Ctrl+C" Command="Copy" />
+                <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="Paste" />
+                <Separator />
+                <MenuItem Header="Select _All" InputGestureText="Ctrl+A" Command="SelectAll" />
+            </MenuItem>
         </Menu>
         <RichTextBox Grid.Row="1" 
                      VerticalScrollBarVisibility="Visible"
