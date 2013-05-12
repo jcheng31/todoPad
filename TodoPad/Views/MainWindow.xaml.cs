@@ -36,7 +36,7 @@ namespace TodoPad.Views
                 {
                     Paragraph currentParagraph = offSet.Paragraph;
 
-                    if (offSet.Parent == textBox.Document)
+                    if (offSet.Parent == textBox.Document && currentChange.AddedLength > currentChange.RemovedLength)
                     {
                         // Format the entire document.
                         currentParagraph = textBox.Document.Blocks.FirstBlock as Paragraph;
