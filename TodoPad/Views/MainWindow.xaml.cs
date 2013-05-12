@@ -22,7 +22,7 @@ namespace TodoPad.Views
         private void DocumentBoxTextChanged(object sender, TextChangedEventArgs e)
         {
             RichTextBox textBox = (RichTextBox)sender;
-            textBox.Document.PageWidth = 5120;
+            //textBox.Document.PageWidth = 5120;
 
             // Remove this handler so we don't trigger it when formatting.
             textBox.TextChanged -= DocumentBoxTextChanged;
