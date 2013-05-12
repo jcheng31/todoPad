@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Microsoft.Win32;
 using TodoPad.Models;
 using TodoPad.Task_Parser;
 
@@ -70,6 +72,30 @@ namespace TodoPad.Views
 
             // Format the displayed text.
             TaskParser.FormatTextRange(currentTextRange, currentRow);
+        }
+
+        private void OpenMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            fileDialog.Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (StreamReader reader = new StreamReader(fileDialog.OpenFile()))
+                    {
+                        String document = reader.ReadToEnd();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+            }
+
         }
     }
 }

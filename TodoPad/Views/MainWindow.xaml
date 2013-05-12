@@ -9,7 +9,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open..." InputGestureText="Ctrl+O"/>
+                <MenuItem Header="_Open..." InputGestureText="Ctrl+O" Click="OpenMenuItemClick"/>
                 <MenuItem Header="_Save" InputGestureText="Ctrl+S"/>
                 <Separator />
                 <MenuItem Header="E_xit" />
