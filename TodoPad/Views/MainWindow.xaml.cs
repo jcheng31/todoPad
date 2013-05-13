@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -121,6 +123,33 @@ namespace TodoPad.Views
 
             TextBox.Document = document;
             FormatDocument();
+        }
+
+        private void SaveMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (currentFile.Path == null)
+            {
+                
+            }
+
+            using (StreamWriter writer = new StreamWriter(new FileStream(currentFile.Path, FileMode.OpenOrCreate)))
+            {
+                foreach (Block currentBlock in TextBox.Document.Blocks)
+                {
+                    String currentLine = GetTextFromBlock(currentBlock);
+                    writer.WriteLine(currentLine);
+                }
+            }
+        }
+
+        private string GetTextFromBlock(Block currentBlock)
+        {
+            TextPointer start = currentBlock.ContentStart;
+            TextPointer end = currentBlock.ContentEnd;
+            TextRange range = new TextRange(start, end);
+
+            string textFromBlock = range.Text;
+            return textFromBlock;
         }
     }
 }
