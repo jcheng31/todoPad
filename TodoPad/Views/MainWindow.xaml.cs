@@ -129,9 +129,16 @@ namespace TodoPad.Views
         {
             if (currentFile.Path == null)
             {
-                
+                SaveAsMenuItemClick(sender, e);
             }
+            else
+            {
+                SaveContentsToDisk();
+            }
+        }
 
+        private void SaveContentsToDisk()
+        {
             using (StreamWriter writer = new StreamWriter(new FileStream(currentFile.Path, FileMode.OpenOrCreate)))
             {
                 foreach (Block currentBlock in TextBox.Document.Blocks)
@@ -150,6 +157,19 @@ namespace TodoPad.Views
 
             string textFromBlock = range.Text;
             return textFromBlock;
+        }
+
+        private void SaveAsMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            fileDialog.Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                currentFile.Path = fileDialog.FileName;
+                SaveContentsToDisk();
+            }
         }
     }
 }
