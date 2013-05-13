@@ -32,7 +32,8 @@
                      FontSize="14" 
                      AcceptsTab="True"
                      TextChanged="DocumentBoxTextChanged" 
-                     UndoLimit="50">
+                     UndoLimit="50"
+                     Name="TextBox">
             <RichTextBox.Resources>
                 <Style TargetType="Paragraph">
                     <Setter Property="Margin" Value="0" />
