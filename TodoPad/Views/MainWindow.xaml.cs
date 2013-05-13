@@ -43,14 +43,7 @@ namespace TodoPad.Views
 
                     if (offSet.Parent == textBox.Document && currentChange.AddedLength > currentChange.RemovedLength)
                     {
-                        // Format the entire document.
-                        currentParagraph = textBox.Document.Blocks.FirstBlock as Paragraph;
-
-                        while (currentParagraph != null)
-                        {
-                            FormatParagraph(currentParagraph);
-                            currentParagraph = currentParagraph.NextBlock as Paragraph;
-                        }
+                        FormatDocument();
                     }
                     else if (currentParagraph != null)
                     {
@@ -61,6 +54,17 @@ namespace TodoPad.Views
 
             // Restore this handler.
             textBox.TextChanged += DocumentBoxTextChanged;
+        }
+
+        private void FormatDocument()
+        {
+            Paragraph currentParagraph = TextBox.Document.Blocks.FirstBlock as Paragraph;
+
+            while (currentParagraph != null)
+            {
+                FormatParagraph(currentParagraph);
+                currentParagraph = currentParagraph.NextBlock as Paragraph;
+            }
         }
 
         private static void FormatParagraph(Paragraph currentParagraph)
