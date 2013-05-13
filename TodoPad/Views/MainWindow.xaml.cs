@@ -98,6 +98,7 @@ namespace TodoPad.Views
                         String filePath = fileDialog.FileName;
 
                         currentFile = new TaskFile(filePath, contents);
+                        UpdateDocumentContents();
                     }
                 }
                 catch (Exception exception)
@@ -106,6 +107,20 @@ namespace TodoPad.Views
                 }
             }
 
+        }
+
+        private void UpdateDocumentContents()
+        {
+            FlowDocument document = new FlowDocument();
+
+            foreach (string row in currentFile.Rows)
+            {
+                Paragraph currentParagraph = new Paragraph(new Run(row));
+                document.Blocks.Add(currentParagraph);
+            }
+
+            TextBox.Document = document;
+            FormatDocument();
         }
     }
 }
