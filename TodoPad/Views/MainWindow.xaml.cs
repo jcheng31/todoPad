@@ -129,22 +129,22 @@ namespace TodoPad.Views
         {
             if (currentFile.Path == null)
             {
-                SaveAsMenuItemClick(sender, e);
+                ShowSaveFileDialog();
             }
-            else
-            {
-                SaveContentsToDisk();
-            }
+            SaveContentsToDisk();
         }
 
         private void SaveContentsToDisk()
         {
-            using (StreamWriter writer = new StreamWriter(new FileStream(currentFile.Path, FileMode.OpenOrCreate)))
+            if (currentFile.Path != null)
             {
-                foreach (Block currentBlock in TextBox.Document.Blocks)
+                using (StreamWriter writer = new StreamWriter(new FileStream(currentFile.Path, FileMode.OpenOrCreate)))
                 {
-                    String currentLine = GetTextFromBlock(currentBlock);
-                    writer.WriteLine(currentLine);
+                    foreach (Block currentBlock in TextBox.Document.Blocks)
+                    {
+                        String currentLine = GetTextFromBlock(currentBlock);
+                        writer.WriteLine(currentLine);
+                    }
                 }
             }
         }
@@ -161,6 +161,15 @@ namespace TodoPad.Views
 
         private void SaveAsMenuItemClick(object sender, RoutedEventArgs e)
         {
+            bool isNewFilePathSet = ShowSaveFileDialog();
+            if (isNewFilePathSet)
+            {
+                SaveContentsToDisk();
+            }
+        }
+
+        private bool ShowSaveFileDialog()
+        {
             SaveFileDialog fileDialog = new SaveFileDialog();
             fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             fileDialog.Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
@@ -168,8 +177,9 @@ namespace TodoPad.Views
             if (fileDialog.ShowDialog() == true)
             {
                 currentFile.Path = fileDialog.FileName;
-                SaveContentsToDisk();
+                return true;
             }
+            return false;
         }
     }
 }
