@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Row.cs" />
+    <Compile Include="Models\TaskFile.cs" />
     <Compile Include="Task Parser\TaskParser.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

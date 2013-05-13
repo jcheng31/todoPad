@@ -16,9 +16,12 @@ namespace TodoPad.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TaskFile currentFile;
+
         public MainWindow()
         {
             InitializeComponent();
+            currentFile = new TaskFile(null, "");
         }
 
         private void DocumentBoxTextChanged(object sender, TextChangedEventArgs e)
