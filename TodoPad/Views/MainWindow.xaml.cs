@@ -94,7 +94,10 @@ namespace TodoPad.Views
                 {
                     using (StreamReader reader = new StreamReader(fileDialog.OpenFile()))
                     {
-                        String document = reader.ReadToEnd();
+                        String contents = reader.ReadToEnd();
+                        String filePath = fileDialog.FileName;
+
+                        currentFile = new TaskFile(filePath, contents);
                     }
                 }
                 catch (Exception exception)
