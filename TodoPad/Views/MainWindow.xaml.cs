@@ -181,5 +181,11 @@ namespace TodoPad.Views
             }
             return false;
         }
+
+        private void PreferencesMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+        }
     }
 }

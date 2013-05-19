@@ -24,6 +24,8 @@
                 <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="Paste" />
                 <Separator />
                 <MenuItem Header="Select _All" InputGestureText="Ctrl+A" Command="SelectAll" />
+                <Separator />
+                <MenuItem Header="Preferences" Click="PreferencesMenuItemClick"></MenuItem>
             </MenuItem>
         </Menu>
         <RichTextBox Grid.Row="1" 
