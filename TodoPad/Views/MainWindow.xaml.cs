@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using Microsoft.Win32;
 using TodoPad.Models;
 using TodoPad.Task_Parser;
@@ -19,11 +20,17 @@ namespace TodoPad.Views
     public partial class MainWindow : Window
     {
         private TaskFile _currentFile;
+        
+        public static RoutedCommand SaveCommand = new RoutedCommand();
+        public static RoutedCommand OpenCommand = new RoutedCommand();
 
         public MainWindow()
         {
             InitializeComponent();
             _currentFile = new TaskFile(null, "");
+
+            SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+            OpenCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
         }
 
         private void DocumentBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -84,7 +91,12 @@ namespace TodoPad.Views
             TaskParser.FormatTextRange(currentTextRange, currentRow);
         }
 
-        private void OpenMenuItemClick(object sender, RoutedEventArgs e)
+        private void OpenCommandHandler(object sender, RoutedEventArgs e)
+        {
+            OpenFile();
+        }
+
+        private void OpenFile()
         {
             OpenFileDialog fileDialog = new OpenFileDialog
                 {
@@ -125,7 +137,12 @@ namespace TodoPad.Views
             FormatDocument();
         }
 
-        private void SaveMenuItemClick(object sender, RoutedEventArgs e)
+        private void SaveCommandHandler(object sender, RoutedEventArgs e)
+        {
+            SaveFile();
+        }
+
+        private void SaveFile()
         {
             if (_currentFile.Path == null)
             {
@@ -160,6 +177,11 @@ namespace TodoPad.Views
         }
 
         private void SaveAsMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileAs();
+        }
+
+        private void SaveFileAs()
         {
             bool isNewFilePathSet = ShowSaveFileDialog();
             if (isNewFilePathSet)

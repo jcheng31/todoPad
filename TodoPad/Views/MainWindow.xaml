@@ -1,7 +1,11 @@
 ﻿<Window x:Class="TodoPad.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:todoPad="clr-namespace:TodoPad.Views"
         Title="todoPad" Height="350" Width="525">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static todoPad:MainWindow.OpenCommand}" Executed="OpenCommandHandler" />
+        <CommandBinding Command="{x:Static todoPad:MainWindow.SaveCommand}" Executed="SaveCommandHandler" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -9,8 +13,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open..." InputGestureText="Ctrl+O" Click="OpenMenuItemClick"/>
-                <MenuItem Header="_Save" InputGestureText="Ctrl+S" Click="SaveMenuItemClick"/>
+                <MenuItem Header="_Open..." InputGestureText="Ctrl+O" Command="{x:Static todoPad:MainWindow.OpenCommand}" />
+                <MenuItem Header="_Save" InputGestureText="Ctrl+S" Command="{x:Static todoPad:MainWindow.SaveCommand}"/>
                 <MenuItem Header="Save _As..." Click="SaveAsMenuItemClick" />
                 <Separator />
                 <MenuItem Header="E_xit" />
