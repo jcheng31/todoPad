@@ -86,30 +86,29 @@ namespace TodoPad.Views
 
         private void OpenMenuItemClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            fileDialog.Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+            OpenFileDialog fileDialog = new OpenFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*"
+                };
 
 
-            if (fileDialog.ShowDialog() == true)
+            if (fileDialog.ShowDialog() != true) return;
+            try
             {
-                try
+                using (StreamReader reader = new StreamReader(fileDialog.OpenFile()))
                 {
-                    using (StreamReader reader = new StreamReader(fileDialog.OpenFile()))
-                    {
-                        String contents = reader.ReadToEnd();
-                        String filePath = fileDialog.FileName;
+                    String contents = reader.ReadToEnd();
+                    String filePath = fileDialog.FileName;
 
-                        _currentFile = new TaskFile(filePath, contents);
-                        UpdateDocumentContents();
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
+                    _currentFile = new TaskFile(filePath, contents);
+                    UpdateDocumentContents();
                 }
             }
-
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private void UpdateDocumentContents()
@@ -171,9 +170,11 @@ namespace TodoPad.Views
 
         private bool ShowSaveFileDialog()
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            fileDialog.Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+            SaveFileDialog fileDialog = new SaveFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Filter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*"
+                };
 
             if (fileDialog.ShowDialog() == true)
             {
