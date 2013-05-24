@@ -18,12 +18,12 @@ namespace TodoPad.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TaskFile currentFile;
+        private TaskFile _currentFile;
 
         public MainWindow()
         {
             InitializeComponent();
-            currentFile = new TaskFile(null, "");
+            _currentFile = new TaskFile(null, "");
         }
 
         private void DocumentBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -100,7 +100,7 @@ namespace TodoPad.Views
                         String contents = reader.ReadToEnd();
                         String filePath = fileDialog.FileName;
 
-                        currentFile = new TaskFile(filePath, contents);
+                        _currentFile = new TaskFile(filePath, contents);
                         UpdateDocumentContents();
                     }
                 }
@@ -116,7 +116,7 @@ namespace TodoPad.Views
         {
             FlowDocument document = new FlowDocument();
 
-            foreach (string row in currentFile.Rows)
+            foreach (string row in _currentFile.Rows)
             {
                 Paragraph currentParagraph = new Paragraph(new Run(row));
                 document.Blocks.Add(currentParagraph);
@@ -128,7 +128,7 @@ namespace TodoPad.Views
 
         private void SaveMenuItemClick(object sender, RoutedEventArgs e)
         {
-            if (currentFile.Path == null)
+            if (_currentFile.Path == null)
             {
                 ShowSaveFileDialog();
             }
@@ -137,9 +137,9 @@ namespace TodoPad.Views
 
         private void SaveContentsToDisk()
         {
-            if (currentFile.Path != null)
+            if (_currentFile.Path != null)
             {
-                using (StreamWriter writer = new StreamWriter(new FileStream(currentFile.Path, FileMode.OpenOrCreate)))
+                using (StreamWriter writer = new StreamWriter(new FileStream(_currentFile.Path, FileMode.OpenOrCreate)))
                 {
                     foreach (Block currentBlock in TextBox.Document.Blocks)
                     {
@@ -177,7 +177,7 @@ namespace TodoPad.Views
 
             if (fileDialog.ShowDialog() == true)
             {
-                currentFile.Path = fileDialog.FileName;
+                _currentFile.Path = fileDialog.FileName;
                 return true;
             }
             return false;
