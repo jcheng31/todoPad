@@ -43,6 +43,7 @@ namespace TodoPad.Views
                 {
                     Paragraph currentParagraph = offSet.Paragraph;
 
+                    // We're intentionally checking reference equality here.
                     if (offSet.Parent == textBox.Document && currentChange.AddedLength > currentChange.RemovedLength)
                     {
                         FormatDocument();
