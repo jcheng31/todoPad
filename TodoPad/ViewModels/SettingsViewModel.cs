@@ -18,7 +18,10 @@ namespace TodoPad.ViewModels
             FontFamilies = new List<FontFamily>();
             foreach (FontFamily font in fonts.Families)
             {
-                FontFamilies.Add(font);
+                if (font.IsStyleAvailable(FontStyle.Regular))
+                {
+                    FontFamilies.Add(font);
+                }
             }
         }
     }
