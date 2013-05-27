@@ -209,7 +209,11 @@ namespace TodoPad.Views
 
         private void PreferencesMenuItemClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow
+                {
+                    Owner = this,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
             settingsWindow.ShowDialog();
         }
     }
