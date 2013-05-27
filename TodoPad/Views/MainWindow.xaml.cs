@@ -219,5 +219,18 @@ namespace TodoPad.Views
                 };
             settingsWindow.ShowDialog();
         }
+
+        private void FontMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog
+                {
+                    AllowVerticalFonts = false,
+                    FontMustExist = true,
+                    ShowColor = false,
+                    ShowApply = false,
+                    ShowEffects = false
+                };
+            fontDialog.ShowDialog();
+        }
     }
 }

@@ -29,7 +29,10 @@
                 <Separator />
                 <MenuItem Header="Select _All" InputGestureText="Ctrl+A" Command="SelectAll" />
                 <Separator />
-                <MenuItem Header="Preferences" Click="PreferencesMenuItemClick"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Settings">
+                <MenuItem Header="Font..." Click="FontMenuItemClick" />
+                <MenuItem Header="Colors" />
             </MenuItem>
         </Menu>
         <RichTextBox Grid.Row="1" 
