@@ -31,7 +31,15 @@
                 <TextBox Grid.Column="0" Grid.Row="1"
                          Style="{StaticResource TextControlMarginStyle}"/>
                 <ListBox Grid.Column="0" Grid.Row="2"
-                         Style="{StaticResource TextControlMarginStyle}" />
+                         Style="{StaticResource TextControlMarginStyle}"
+                         ItemsSource="{Binding FontFamilies}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ListBoxItem Content="{Binding Name}" FontFamily="{Binding Name}" FontSize="12" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
                 <Label Grid.Column="1" Grid.Row="0" 
                        Content="Size: "/>
