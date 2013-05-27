@@ -23,5 +23,10 @@ namespace TodoPad
         {
             InitializeComponent();
         }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

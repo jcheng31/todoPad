@@ -51,7 +51,7 @@
                         Content="OK" />
                 <Button Grid.Column="1" 
                         Style="{StaticResource ButtonStandardStyle}"
-                        Content="Cancel" />
+                        Content="Cancel" Click="CancelButtonClick" />
             </Grid>
         </StackPanel>
     </Grid>
