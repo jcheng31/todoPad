@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace TodoPad.Models
+namespace TodoPad
 {
     public class ObservableObject : INotifyPropertyChanged, INotifyPropertyChanging
     {
