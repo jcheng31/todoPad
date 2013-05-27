@@ -28,11 +28,10 @@
                 <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="Paste" />
                 <Separator />
                 <MenuItem Header="Select _All" InputGestureText="Ctrl+A" Command="SelectAll" />
-                <Separator />
             </MenuItem>
             <MenuItem Header="_Settings">
-                <MenuItem Header="Font..." Click="FontMenuItemClick" />
                 <MenuItem Header="Colors" />
+                <MenuItem Header="Font..." Click="FontMenuItemClick" />
             </MenuItem>
         </Menu>
         <RichTextBox Grid.Row="1" 
