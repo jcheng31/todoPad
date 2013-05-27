@@ -26,6 +26,7 @@ namespace TodoPad.Views
 
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             _currentFile = new TaskFile(null, "");
 
