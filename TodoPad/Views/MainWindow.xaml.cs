@@ -7,10 +7,13 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.Win32;
 using TodoPad.Models;
 using TodoPad.Task_Parser;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using RichTextBox = System.Windows.Controls.RichTextBox;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace TodoPad.Views
 {
