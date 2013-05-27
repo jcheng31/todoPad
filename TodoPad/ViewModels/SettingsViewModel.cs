@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace TodoPad.ViewModels
 {
@@ -15,7 +15,11 @@ namespace TodoPad.ViewModels
         public SettingsViewModel()
         {
             InstalledFontCollection fonts = new InstalledFontCollection();
-            FontFamilies = fonts.Families;
+            FontFamilies = new List<FontFamily>();
+            foreach (FontFamily font in fonts.Families)
+            {
+                FontFamilies.Add(font);
+            }
         }
     }
 }
